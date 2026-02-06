@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiszki - Państwa i Stolice Europy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Fiszki - Państwa i Stolice Europy</h1>
+        <div id="flashcard-container" class="flashcard-container">
+            <div id="flashcard" class="flashcard" onclick="flipCard()">
+                <div class="flashcard-front">
+                    <p id="country"></p>
+                </div>
+                <div class="flashcard-back">
+                    <p id="capital"></p>
+                </div>
+            </div>
+        </div>
+        <div class="controls">
+            <button onclick="prevCard()">Poprzednia</button>
+            <button onclick="nextCard()">Następna</button>
+            <a href="/">Wróć do menu</a>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

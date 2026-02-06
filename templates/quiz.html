@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Państwa i Stolice</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz - Jaka jest stolica tego państwa?</h1>
+        <div id="quiz-container">
+            <div id="question-container">
+                <p id="country-question"></p>
+            </div>
+            <div id="answer-container">
+                <input type="text" id="capital-input" placeholder="Wpisz stolicę...">
+                <button id="submit-answer">Sprawdź</button>
+            </div>
+            <div id="result-container">
+                <p id="result-message"></p>
+            </div>
+            <div id="score-container">
+                <p>Wynik: <span id="score">0</span> / <span id="total-questions">0</span></p>
+            </div>
+            <div class="controls">
+                <a href="/">Wróć do menu</a>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='quiz.js') }}"></script>
+</body>
+</html>

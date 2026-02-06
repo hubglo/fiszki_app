@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiszki App - Start</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .start-container {
+            text-align: center;
+        }
+        .start-container a {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+        }
+        .start-container a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="start-container">
+            <h1>Witaj w aplikacji Fiszki!</h1>
+            <p>Wybierz co chcesz robić:</p>
+            <a href="/flashcards">Przeglądaj Fiszki</a>
+            <a href="/quiz">Rozwiąż Quiz</a>
+        </div>
+    </div>
+</body>
+</html>
