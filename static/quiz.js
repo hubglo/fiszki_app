@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let flashcards = [];
     let currentCardIndex = 0;
     let score = 0;
+    let questionTypes = []; // true = normal (country->capital), false = reverse (capital->country)
 
     const countryQuestionElement = document.getElementById('country-question');
     const capitalInputElement = document.getElementById('capital-input');
@@ -14,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             flashcards = shuffleArray(data);
+            questionTypes = flashcards.map(() => Math.random() > 0.5); // Randomly choose question type
             totalQuestionsElement.innerText = flashcards.length;
             if (flashcards.length > 0) {
                 displayQuestion();
@@ -28,9 +30,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayQuestion() {
         if (currentCardIndex < flashcards.length) {
-            countryQuestionElement.innerText = flashcards[currentCardIndex].country;
+            const isNormalQuestion = questionTypes[currentCardIndex];
+            const card = flashcards[currentCardIndex];
+            
+            if (isNormalQuestion) {
+                // Normal: country -> capital
+                countryQuestionElement.innerText = `Jaka jest stolica ${card.country}?`;
+            } else {
+                // Reverse: capital -> country
+                countryQuestionElement.innerText = `Które państwo ma stolicę ${card.capital}?`;
+            }
+            
             resultMessageElement.innerText = '';
             capitalInputElement.value = '';
+            capitalInputElement.placeholder = isNormalQuestion ? 'Wpisz stolicę...' : 'Wpisz państwo...';
             capitalInputElement.focus();
         } else {
             countryQuestionElement.innerText = "Quiz zakończony!";
@@ -44,14 +57,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentCardIndex >= flashcards.length) return;
 
         const userAnswer = capitalInputElement.value.trim().toLowerCase();
-        const correctAnswer = flashcards[currentCardIndex].capital.trim().toLowerCase();
+        const isNormalQuestion = questionTypes[currentCardIndex];
+        const card = flashcards[currentCardIndex];
+        
+        const correctAnswer = isNormalQuestion ? 
+            card.capital.trim().toLowerCase() : 
+            card.country.trim().toLowerCase();
 
         if (userAnswer === correctAnswer) {
             score++;
             resultMessageElement.innerText = "Poprawna odpowiedź!";
             resultMessageElement.className = 'correct';
         } else {
-            resultMessageElement.innerText = `Błędna odpowiedź. Prawidłowa to: ${flashcards[currentCardIndex].capital}`;
+            const correctAnswerDisplay = isNormalQuestion ? card.capital : card.country;
+            resultMessageElement.innerText = `Błędna odpowiedź. Prawidłowa to: ${correctAnswerDisplay}`;
             resultMessageElement.className = 'incorrect';
         }
 
@@ -60,16 +79,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
         setTimeout(() => {
             displayQuestion();
-        }, 2000); // Wait 2 seconds before showing the next question
+        }, 2000);
     }
 
     // Shuffle array function to randomize questions
     function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
         }
-        return array;
+        return newArray;
     }
 
     submitAnswerButton.addEventListener('click', checkAnswer);

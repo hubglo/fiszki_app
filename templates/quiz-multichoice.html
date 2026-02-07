@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Wielokrotny Wybór - Państwa i Stolice</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
+    <style>
+        #answers-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .answer-btn {
+            padding: 15px;
+            font-size: 1em;
+            border: 2px solid #ccc;
+            background-color: white;
+            color: #333;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .answer-btn:hover:not(:disabled) {
+            background-color: #e9ecef;
+            border-color: #007bff;
+        }
+        
+        .answer-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .answer-btn.correct {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+        
+        .answer-btn.incorrect {
+            background-color: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+        
+        .answer-btn.show-correct {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz - Wielokrotny Wybór</h1>
+        <div id="quiz-container">
+            <div id="question-container">
+                <p id="country-question"></p>
+            </div>
+            <div id="answers-container">
+            </div>
+            <div id="result-container">
+                <p id="result-message"></p>
+            </div>
+            <div id="score-container">
+                <p>Wynik: <span id="score">0</span> / <span id="total-questions">0</span></p>
+            </div>
+            <div class="controls">
+                <a href="/">Wróć do menu</a>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='quiz-multichoice.js') }}"></script>
+</body>
+</html>

@@ -20,6 +20,10 @@ def flashcards():
 def quiz():
     return render_template('quiz.html')
 
+@app.route('/quiz-multichoice')
+def quiz_multichoice():
+    return render_template('quiz-multichoice.html')
+
 @app.route('/api/flashcards')
 def get_flashcards():
     flashcards = load_flashcards()
