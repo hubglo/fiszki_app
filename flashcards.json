@@ -1,206 +1,47 @@
 [
-	{
-		"country": "Polska",
-		"capital": "Warszawa"
-	},
-	{
-		"country": "Niemcy",
-		"capital": "Berlin"
-	},
-	{
-		"country": "Francja",
-		"capital": "Paryż"
-	},
-	{
-		"country": "Hiszpania",
-		"capital": "Madryt"
-	},
-	{
-		"country": "Włochy",
-		"capital": "Rzym"
-	},
-	{
-		"country": "Albania",
-		"capital": "Tirana"
-	},
-	{
-		"country": "Andora",
-		"capital": "Andora"
-	},
-	{
-		"country": "Austria",
-		"capital": "Wiedeń"
-	},
-	{
-		"country": "Belgia",
-		"capital": "Bruksela"
-	},
-	{
-		"country": "Białoruś",
-		"capital": "Mińsk"
-	},
-	{
-		"country": "Bośnia",
-		"capital": "Hercegowina – Sarajewo"
-	},
-	{
-		"country": "Bułgaria",
-		"capital": "Sofia"
-	},
-	{
-		"country": "Czarnogóra",
-		"capital": "Podgorica"
-	},
-	{
-		"country": "Czechy",
-		"capital": "Praga"
-	},
-	{
-		"country": "Chorwacja",
-		"capital": "Zagrzeb"
-	},
-	{
-		"country": "Dania",
-		"capital": "Kopenhaga"
-	},
-	{
-		"country": "Estonia",
-		"capital": "Tallin"
-	},
-	{
-		"country": "Finlandia",
-		"capital": "Helsinki"
-	},
-	{
-		"country": "Francja",
-		"capital": "Paryż"
-	},
-	{
-		"country": "Grecja",
-		"capital": "Ateny"
-	},
-	{
-		"country": "Hiszpania",
-		"capital": "Madryt"
-	},
-	{
-		"country": "Niderlandy",
-		"capital": "Amsterdam"
-	},
-	{
-		"country": "Irlandia",
-		"capital": "Dublin"
-	},
-	{
-		"country": "Islandia",
-		"capital": "Reykjavik"
-	},
-	{
-		"country": "Kazachstan",
-		"capital": "Astana"
-	},
-	{
-		"country": "Liechtenstein",
-		"capital": "Vaduz"
-	},
-	{
-		"country": "Litwa",
-		"capital": "Wilno"
-	},
-	{
-		"country": "Luksemburg",
-		"capital": "Luksemburg"
-	},
-	{
-		"country": "Łotwa",
-		"capital": "Ryga"
-	},
-	{
-		"country": "Macedonia Północna",
-		"capital": "Skopje"
-	},
-	{
-		"country": "Malta",
-		"capital": "Valletta"
-	},
-	{
-		"country": "Mołdawia",
-		"capital": "Kiszyniów"
-	},
-	{
-		"country": "Monako",
-		"capital": "Monako"
-	},
-	{
-		"country": "Niemcy",
-		"capital": "Berlin"
-	},
-	{
-		"country": "Norwegia",
-		"capital": "Oslo"
-	},
-	{
-		"country": "Polska",
-		"capital": "Warszawa"
-	},
-	{
-		"country": "Portugalia",
-		"capital": "Lizbona"
-	},
-	{
-		"country": "Rosja",
-		"capital": "Moskwa"
-	},
-	{
-		"country": "Rumunia",
-		"capital": "Bukareszt"
-	},
-	{
-		"country": "San Marino",
-		"capital": "San Marino"
-	},
-	{
-		"country": "Serbia",
-		"capital": "Belgrad"
-	},
-	{
-		"country": "Słowenia",
-		"capital": "Lublana"
-	},
-	{
-		"country": "Słowacja",
-		"capital": "Bratysława"
-	},
-	{
-		"country": "Szwajcaria",
-		"capital": "Berno"
-	},
-	{
-		"country": "Szwecja",
-		"capital": "Sztokholm"
-	},
-	{
-		"country": "Łotwa",
-		"capital": "Ryga (powtórzenie)"
-	},
-	{
-		"country": "Ukraina",
-		"capital": "Kijów"
-	},
-	{
-		"country": "Watykan",
-		"capital": "Watykan"
-	},
-	{
-		"country": "Węgry",
-		"capital": "Budapeszt"
-	},
-	{
-		"country": "Wielka Brytania",
-		"capital": "Londyn"
-	},
-	{
-		"country": "Włochy",
-		"capital": "Rzym"
-	}
+	{ "country": "Albania", "capital": "Tirana" },
+	{ "country": "Andora", "capital": "Andora" },
+	{ "country": "Austria", "capital": "Wiedeń" },
+	{ "country": "Belgia", "capital": "Bruksela" },
+	{ "country": "Białoruś", "capital": "Mińsk" },
+	{ "country": "Bośnia i Hercegowina", "capital": "Sarajewo" },
+	{ "country": "Bułgaria", "capital": "Sofia" },
+	{ "country": "Chorwacja", "capital": "Zagrzeb" },
+	{ "country": "Czechy", "capital": "Praga" },
+	{ "country": "Czarnogóra", "capital": "Podgorica" },
+	{ "country": "Dania", "capital": "Kopenhaga" },
+	{ "country": "Estonia", "capital": "Tallin" },
+	{ "country": "Finlandia", "capital": "Helsinki" },
+	{ "country": "Francja", "capital": "Paryż" },
+	{ "country": "Grecja", "capital": "Ateny" },
+	{ "country": "Hiszpania", "capital": "Madryt" },
+	{ "country": "Niderlandy", "capital": "Amsterdam" },
+	{ "country": "Irlandia", "capital": "Dublin" },
+	{ "country": "Islandia", "capital": "Reykjavik" },
+	{ "country": "Kazachstan", "capital": "Astana" },
+	{ "country": "Liechtenstein", "capital": "Vaduz" },
+	{ "country": "Litwa", "capital": "Wilno" },
+	{ "country": "Luksemburg", "capital": "Luksemburg" },
+	{ "country": "Łotwa", "capital": "Ryga" },
+	{ "country": "Macedonia Północna", "capital": "Skopje" },
+	{ "country": "Malta", "capital": "Valletta" },
+	{ "country": "Mołdawia", "capital": "Kiszyniów" },
+	{ "country": "Monako", "capital": "Monako" },
+	{ "country": "Niemcy", "capital": "Berlin" },
+	{ "country": "Norwegia", "capital": "Oslo" },
+	{ "country": "Polska", "capital": "Warszawa" },
+	{ "country": "Portugalia", "capital": "Lizbona" },
+	{ "country": "Rosja", "capital": "Moskwa" },
+	{ "country": "Rumunia", "capital": "Bukareszt" },
+	{ "country": "San Marino", "capital": "San Marino" },
+	{ "country": "Serbia", "capital": "Belgrad" },
+	{ "country": "Słowacja", "capital": "Bratysława" },
+	{ "country": "Słowenia", "capital": "Lublana" },
+	{ "country": "Szwajcaria", "capital": "Berno" },
+	{ "country": "Szwecja", "capital": "Sztokholm" },
+	{ "country": "Ukraina", "capital": "Kijów" },
+	{ "country": "Watykan", "capital": "Watykan" },
+	{ "country": "Węgry", "capital": "Budapeszt" },
+	{ "country": "Wielka Brytania", "capital": "Londyn" },
+	{ "country": "Włochy", "capital": "Rzym" }
 ]
