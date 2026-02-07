@@ -6,8 +6,7 @@ WORKDIR /app
 
 # Copy the requirements file and install any dependencies
 COPY requirements.txt .
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir --default-timeout=100 -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code
 COPY . .
