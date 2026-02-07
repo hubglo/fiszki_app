@@ -1,30 +1,22 @@
-# Use Python 3.11 slim image
-FROM python:3.11-slim
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim-buster
 
-# Set working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    python3-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Python dependencies
+# Copy the requirements file and install any dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir --default-timeout=100 -r requirements.txt
 
-# Copy application code
+# Copy the rest of the application code
 COPY . .
 
-# Set environment variables
-ENV FLASK_APP=app.py
-ENV FLASK_ENV=production
-ENV PYTHONUNBUFFERED=1
-
-# Port, na którym zazwyczaj działa Flask (Fly.io domyślnie oczekuje 8080 lub 5000)
+# Expose port 5000, which Gunicorn will use
 EXPOSE 5000
 
-# Uruchomienie aplikacji za pomocą Gunicorn (zalecane na produkcji zamiast flask run)
-# Załóżmy, że Twój główny plik to app.py, a obiekt Flask nazywa się 'app'
+# Set the environment variable to disable debug mode in Flask
+ENV FLASK_DEBUG=0
+
+# Run the application with Gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
