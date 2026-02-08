@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreElement = document.getElementById('score');
     const totalQuestionsElement = document.getElementById('total-questions');
 
-    fetch('/api/flashcards')
+    fetch(`/api/flashcards?category=${category}`)
         .then(response => response.json())
         .then(data => {
             flashcards = shuffleArray(data);
@@ -40,15 +40,15 @@ document.addEventListener('DOMContentLoaded', () => {
             let correctAnswer, questionText, wrongAnswers;
 
             if (isNormalQuestion) {
-                // Normal: country -> capital
-                questionText = `Jaka jest stolica ${card.country}?`;
-                correctAnswer = card.capital;
-                wrongAnswers = getWrongAnswersCapitals(correctAnswer, 3);
+                // Normal: obverse -> reverse
+                questionText = `Podaj odpowiedź dla: ${card.obverse}?`;
+                correctAnswer = card.reverse;
+                wrongAnswers = getWrongAnswers(correctAnswer, 3, true);
             } else {
-                // Reverse: capital -> country
-                questionText = `Które państwo ma stolicę ${card.capital}?`;
-                correctAnswer = card.country;
-                wrongAnswers = getWrongAnswersCountries(correctAnswer, 3);
+                // Reverse: reverse -> obverse
+                questionText = `Podaj odpowiedź dla: ${card.reverse}?`;
+                correctAnswer = card.obverse;
+                wrongAnswers = getWrongAnswers(correctAnswer, 3, false);
             }
 
             countryQuestionElement.innerText = questionText;
@@ -110,26 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2500);
     }
 
-    function getWrongAnswersCapitals(correctAnswer, count) {
+    function getWrongAnswers(correctAnswer, count, useReverse) {
         const wrongAnswers = [];
+        const field = useReverse ? 'reverse' : 'obverse';
         const availableAnswers = flashcards
-            .map(card => card.capital)
-            .filter(capital => capital.toLowerCase().trim() !== correctAnswer.toLowerCase().trim());
-
-        for (let i = 0; i < count && availableAnswers.length > 0; i++) {
-            const randomIndex = Math.floor(Math.random() * availableAnswers.length);
-            wrongAnswers.push(availableAnswers[randomIndex]);
-            availableAnswers.splice(randomIndex, 1);
-        }
-
-        return wrongAnswers;
-    }
-
-    function getWrongAnswersCountries(correctAnswer, count) {
-        const wrongAnswers = [];
-        const availableAnswers = flashcards
-            .map(card => card.country)
-            .filter(country => country.toLowerCase().trim() !== correctAnswer.toLowerCase().trim());
+            .map(card => card[field])
+            .filter(answer => answer.toLowerCase().trim() !== correctAnswer.toLowerCase().trim());
 
         for (let i = 0; i < count && availableAnswers.length > 0; i++) {
             const randomIndex = Math.floor(Math.random() * availableAnswers.length);

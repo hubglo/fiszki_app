@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiszki - Państwa i Stolice Europy</title>
+    <title>Fiszki</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Fiszki - Państwa i Stolice Europy</h1>
+        <h1 id="page-title">Fiszki</h1>
         <div id="flashcard-container" class="flashcard-container">
             <div id="flashcard" class="flashcard" onclick="flipCard()">
                 <div class="flashcard-front">
@@ -22,9 +22,12 @@
         <div class="controls">
             <button onclick="prevCard()">Poprzednia</button>
             <button onclick="nextCard()">Następna</button>
-            <a href="/">Wróć do menu</a>
+            <a href="javascript:history.back()">Wróć</a>
         </div>
     </div>
+    <script>
+        const category = '{{ category }}' || 'capitals';
+    </script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Wielokrotny Wybór - Państwa i Stolice</title>
+    <title>Quiz - Wielokrotny Wybór</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
     <style>
@@ -56,7 +56,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Quiz - Wielokrotny Wybór</h1>
+        <h1 id="page-title">Quiz - Wielokrotny Wybór</h1>
         <div id="quiz-container">
             <div id="question-container">
                 <p id="country-question"></p>
@@ -70,10 +70,13 @@
                 <p>Wynik: <span id="score">0</span> / <span id="total-questions">0</span></p>
             </div>
             <div class="controls">
-                <a href="/">Wróć do menu</a>
+                <a href="javascript:history.back()">Wróć</a>
             </div>
         </div>
     </div>
+    <script>
+        const category = '{{ category }}' || 'capitals';
+    </script>
     <script src="{{ url_for('static', filename='quiz-multichoice.js') }}"></script>
 </body>
 </html>

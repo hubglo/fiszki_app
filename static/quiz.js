@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreElement = document.getElementById('score');
     const totalQuestionsElement = document.getElementById('total-questions');
 
-    fetch('/api/flashcards')
+    fetch(`/api/flashcards?category=${category}`)
         .then(response => response.json())
         .then(data => {
             flashcards = shuffleArray(data);
@@ -34,16 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = flashcards[currentCardIndex];
             
             if (isNormalQuestion) {
-                // Normal: country -> capital
-                countryQuestionElement.innerText = `Jaka jest stolica ${card.country}?`;
+                // Normal: obverse -> reverse
+                countryQuestionElement.innerText = `Jaka jest odpowiedź dla: ${card.obverse}?`;
             } else {
-                // Reverse: capital -> country
-                countryQuestionElement.innerText = `Które państwo ma stolicę ${card.capital}?`;
+                // Reverse: reverse -> obverse
+                countryQuestionElement.innerText = `Jaka jest odpowiedź dla: ${card.reverse}?`;
             }
             
             resultMessageElement.innerText = '';
             capitalInputElement.value = '';
-            capitalInputElement.placeholder = isNormalQuestion ? 'Wpisz stolicę...' : 'Wpisz państwo...';
+            capitalInputElement.placeholder = 'Wpisz odpowiedź...';
             capitalInputElement.focus();
         } else {
             countryQuestionElement.innerText = "Quiz zakończony!";
@@ -61,15 +61,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = flashcards[currentCardIndex];
         
         const correctAnswer = isNormalQuestion ? 
-            card.capital.trim().toLowerCase() : 
-            card.country.trim().toLowerCase();
+            card.reverse.trim().toLowerCase() : 
+            card.obverse.trim().toLowerCase();
 
         if (userAnswer === correctAnswer) {
             score++;
             resultMessageElement.innerText = "Poprawna odpowiedź!";
             resultMessageElement.className = 'correct';
         } else {
-            const correctAnswerDisplay = isNormalQuestion ? card.capital : card.country;
+            const correctAnswerDisplay = isNormalQuestion ? card.reverse : card.obverse;
             resultMessageElement.innerText = `Błędna odpowiedź. Prawidłowa to: ${correctAnswerDisplay}`;
             resultMessageElement.className = 'incorrect';
         }

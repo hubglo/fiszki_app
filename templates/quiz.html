@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz - Państwa i Stolice</title>
+    <title>Quiz</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Quiz - Jaka jest stolica tego państwa?</h1>
+        <h1 id="page-title">Quiz</h1>
         <div id="quiz-container">
             <div id="question-container">
                 <p id="country-question"></p>
             </div>
             <div id="answer-container">
-                <input type="text" id="capital-input" placeholder="Wpisz stolicę...">
+                <input type="text" id="capital-input" placeholder="Wpisz odpowiedź...">
                 <button id="submit-answer">Sprawdź</button>
             </div>
             <div id="result-container">
@@ -25,10 +25,13 @@
                 <p>Wynik: <span id="score">0</span> / <span id="total-questions">0</span></p>
             </div>
             <div class="controls">
-                <a href="/">Wróć do menu</a>
+                <a href="javascript:history.back()">Wróć</a>
             </div>
         </div>
     </div>
+    <script>
+        const category = '{{ category }}' || 'capitals';
+    </script>
     <script src="{{ url_for('static', filename='quiz.js') }}"></script>
 </body>
 </html>

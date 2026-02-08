@@ -1,0 +1,64 @@
+{
+	"themes": [
+		{
+			"id": "light",
+			"name": "Jasny",
+			"primary": "#007bff",
+			"secondary": "#6c757d",
+			"accent": "#764ba2",
+			"text": "#333333",
+			"background": "#ffffff",
+			"success": "#28a745",
+			"error": "#dc3545",
+			"warn": "#ffc107"
+		},
+		{
+			"id": "dark",
+			"name": "Ciemny",
+			"primary": "#0d47a1",
+			"secondary": "#455a64",
+			"accent": "#7b1fa2",
+			"text": "#eceff1",
+			"background": "#121212",
+			"success": "#4caf50",
+			"error": "#f44336",
+			"warn": "#ff9800"
+		},
+		{
+			"id": "vibrant",
+			"name": "Żywy",
+			"primary": "#ff6b6b",
+			"secondary": "#4ecdc4",
+			"accent": "#f9ca24",
+			"text": "#2d3436",
+			"background": "#f5f6fa",
+			"success": "#1dd1a1",
+			"error": "#ee5a6f",
+			"warn": "#ffa502"
+		},
+		{
+			"id": "minimal",
+			"name": "Minimalny",
+			"primary": "#2c3e50",
+			"secondary": "#95a5a6",
+			"accent": "#34495e",
+			"text": "#2c3e50",
+			"background": "#ecf0f1",
+			"success": "#27ae60",
+			"error": "#e74c3c",
+			"warn": "#e67e22"
+		},
+		{
+			"id": "sunset",
+			"name": "Zachód",
+			"primary": "#ff7675",
+			"secondary": "#fdcb6e",
+			"accent": "#6c5ce7",
+			"text": "#2d3436",
+			"background": "#fff5e1",
+			"success": "#00b894",
+			"error": "#d63031",
+			"warn": "#fdcb6e"
+		}
+	]
+}
