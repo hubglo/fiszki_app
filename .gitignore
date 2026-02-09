@@ -4,3 +4,4 @@
 __pycache__/app.cpython-314.pyc
 /.venv
 run_local.py
+.github/prompts/plan-circleOfFifths.prompt.md
