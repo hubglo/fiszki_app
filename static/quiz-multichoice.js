@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(() => {
             displayQuestion();
-        }, 2500);
+        }, 1500);
     }
 
     function getWrongAnswers(correctAnswer, count, useReverse) {

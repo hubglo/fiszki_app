@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Fiszki</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -20,9 +20,9 @@
             </div>
         </div>
         <div class="controls">
-            <button onclick="prevCard()">Poprzednia</button>
-            <button onclick="nextCard()">Następna</button>
-            <a href="javascript:history.back()">Wróć</a>
+            <button onclick="prevCard()" aria-label="Poprzednia karta">← Poprzednia</button>
+            <button onclick="nextCard()" aria-label="Następna karta">Następna →</button>
+            <a href="javascript:history.back()" aria-label="Powrót do menu">Wróć</a>
         </div>
     </div>
     <script>

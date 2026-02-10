@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Quiz</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
@@ -15,7 +15,7 @@
                 <p id="country-question"></p>
             </div>
             <div id="answer-container">
-                <input type="text" id="capital-input" placeholder="Wpisz odpowiedź...">
+                <input type="text" id="capital-input" placeholder="Wpisz odpowiedź..." autocomplete="off">
                 <button id="submit-answer">Sprawdź</button>
             </div>
             <div id="result-container">

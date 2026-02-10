@@ -2,6 +2,14 @@ let flashcards = [];
 let currentCardIndex = 0;
 let isFlipped = false;
 
+// Swipe detection variables
+let touchStartX = 0;
+let touchEndX = 0;
+let touchStartY = 0;
+let touchEndY = 0;
+const SWIPE_THRESHOLD = 50; // minimum distance for a swipe
+const VERTICAL_THRESHOLD = 30; // max vertical movement allowed
+
 document.addEventListener('DOMContentLoaded', () => {
     fetch(`/api/flashcards?category=${category}`)
         .then(response => response.json())
@@ -9,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             flashcards = data;
             if (flashcards.length > 0) {
                 displayCard();
+                setupSwipeListeners();
             } else {
                 document.getElementById('country').innerText = "Brak fiszek.";
                 document.getElementById('capital').innerText = "Brak fiszek.";
@@ -59,4 +68,40 @@ function nextCard() {
 function prevCard() {
     currentCardIndex = (currentCardIndex - 1 + flashcards.length) % flashcards.length;
     displayCard();
+}
+
+// Swipe gesture support for touch devices
+function setupSwipeListeners() {
+    const flashcardContainer = document.getElementById('flashcard-container');
+    if (!flashcardContainer) return;
+
+    // Touch start - record initial position
+    flashcardContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+    }, false);
+
+    // Touch end - detect swipe direction and magnitude
+    flashcardContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+    }, false);
+}
+
+function handleSwipe() {
+    const horizontalDistance = touchEndX - touchStartX;
+    const verticalDistance = Math.abs(touchEndY - touchStartY);
+
+    // Only process if it's a horizontal swipe (not diagonal)
+    if (Math.abs(horizontalDistance) > SWIPE_THRESHOLD && verticalDistance < VERTICAL_THRESHOLD) {
+        // Swipe right = previous card
+        if (horizontalDistance > 0) {
+            prevCard();
+        }
+        // Swipe left = next card
+        else {
+            nextCard();
+        }
+    }
 }

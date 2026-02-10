@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
             totalQuestionsElement.innerText = flashcards.length;
             if (flashcards.length > 0) {
                 displayQuestion();
+                // Auto-focus input for better mobile UX
+                setTimeout(() => capitalInputElement.focus(), 100);
             } else {
                 countryQuestionElement.innerText = "Brak pytań w quizie.";
             }
@@ -45,6 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
             capitalInputElement.value = '';
             capitalInputElement.placeholder = 'Wpisz odpowiedź...';
             capitalInputElement.focus();
+            
+            // Ensure input is scrolled into view on focus (mobile keyboard appeared)
+            setTimeout(() => {
+                capitalInputElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 200);
         } else {
             countryQuestionElement.innerText = "Quiz zakończony!";
             document.getElementById('answer-container').style.display = 'none';
@@ -77,7 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreElement.innerText = score;
         currentCardIndex++;
         
+        // Disable input during feedback display
+        capitalInputElement.disabled = true;
+        submitAnswerButton.disabled = true;
+        
         setTimeout(() => {
+            capitalInputElement.disabled = false;
+            submitAnswerButton.disabled = false;
             displayQuestion();
         }, 2000);
     }
@@ -93,9 +106,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     submitAnswerButton.addEventListener('click', checkAnswer);
+    
+    // Handle Enter key and prevent accidental double-submissions
     capitalInputElement.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && !submitAnswerButton.disabled) {
             checkAnswer();
         }
+    });
+    
+    // Improve touch feedback on input
+    capitalInputElement.addEventListener('focus', (event) => {
+        event.target.style.boxShadow = '0 0 0 3px rgba(0, 123, 255, 0.1)';
+    });
+    
+    capitalInputElement.addEventListener('blur', (event) => {
+        event.target.style.boxShadow = '';
     });
 });
