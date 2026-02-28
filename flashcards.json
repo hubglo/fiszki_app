@@ -28,6 +28,11 @@
 			"id": "hiszpanski",
 			"name": "🇪🇸 Hiszpański",
 			"hasSubcategories": false
+		},
+		{
+			"id": "mechanika_kwantowa",
+			"name": "⚛️ Mechanika kwantowa (uniwersytecka)",
+			"hasSubcategories": false
 		}
 	],
 	"kolo_kwintowe": [
@@ -122,5 +127,22 @@
 		{ "obverse": "Pomocy!", "reverse": "¡Ayuda!" },
 		{ "obverse": "Dziękuję bardzo", "reverse": "Muchas gracias" },
 		{ "obverse": "Do widzenia", "reverse": "Adiós" }
+	],
+	"mechanika_kwantowa": [
+		{ "obverse": "Jak wygląda równanie Schrödingera zależne od czasu?", "reverse": "iħ ∂|ψ(t)⟩/∂t = Ĥ|ψ(t)⟩" },
+		{ "obverse": "Jak definiuje się wartość oczekiwaną operatora Â w stanie |ψ⟩?", "reverse": "⟨A⟩ = ⟨ψ|Â|ψ⟩" },
+		{ "obverse": "Jakie jest kanoniczne komutatorowe [x̂, p̂]?", "reverse": "[x̂, p̂] = iħ" },
+		{ "obverse": "Jaka jest zasada nieoznaczoności Heisenberga dla x i p?", "reverse": "Δx·Δp ≥ ħ/2" },
+		{ "obverse": "Jaki warunek musi spełniać operator obserwabli?", "reverse": "Musi być hermitowski (samosprzężony)" },
+		{ "obverse": "Co oznacza, że dwie obserwable komutują?", "reverse": "Można je jednocześnie dokładnie mierzyć i mają wspólny układ własny" },
+		{ "obverse": "Jaki jest operator pędu w reprezentacji położeniowej (1D)?", "reverse": "p̂ = -iħ d/dx" },
+		{ "obverse": "Jaki jest hamiltonian oscylatora harmonicznego?", "reverse": "Ĥ = p̂²/(2m) + (1/2)mω²x̂²" },
+		{ "obverse": "Jakie są poziomy energii oscylatora harmonicznego?", "reverse": "Eₙ = ħω(n + 1/2), n = 0,1,2,..." },
+		{ "obverse": "Jaki jest hamiltonian atomu wodoru (bez sprzężenia spin-orbita)?", "reverse": "Ĥ = p̂²/(2μ) - e²/(4πϵ₀r)" },
+		{ "obverse": "Jakie są energie związane atomu wodoru?", "reverse": "Eₙ = -13,6 eV / n² dla n = 1,2,..." },
+		{ "obverse": "Co opisuje reguła Borna?", "reverse": "Gęstość prawdopodobieństwa znalezienia cząstki: |ψ(x)|²" },
+		{ "obverse": "Jaki jest warunek normalizacji funkcji falowej?", "reverse": "∫ |ψ(x)|² dx = 1" },
+		{ "obverse": "Jak ewoluuje stan stacjonarny w czasie?", "reverse": "|ψ(t)⟩ = e^(−iEt/ħ)|ψ(0)⟩, czyli zmienia się tylko faza" },
+		{ "obverse": "Co to jest tunelowanie kwantowe?", "reverse": "Niezerowe prawdopodobieństwo przejścia przez barierę potencjału klasycznie nieprzekraczalną" }
 	]
 }
