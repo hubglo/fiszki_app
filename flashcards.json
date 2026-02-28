@@ -23,6 +23,11 @@
 					"dataKey": "capitals"
 				}
 			]
+		},
+		{
+			"id": "hiszpanski",
+			"name": "🇪🇸 Hiszpański",
+			"hasSubcategories": false
 		}
 	],
 	"kolo_kwintowe": [
@@ -100,5 +105,22 @@
 		{ "obverse": "Węgry", "reverse": "Budapeszt" },
 		{ "obverse": "Wielka Brytania", "reverse": "Londyn" },
 		{ "obverse": "Włochy", "reverse": "Rzym" }
+	],
+	"hiszpanski": [
+		{ "obverse": "Dzień dobry", "reverse": "Buenos días" },
+		{ "obverse": "Dobry wieczór", "reverse": "Buenas tardes" },
+		{ "obverse": "Dobranoc", "reverse": "Buenas noches" },
+		{ "obverse": "Jak się masz?", "reverse": "¿Cómo estás?" },
+		{ "obverse": "Mam się dobrze, dziękuję", "reverse": "Estoy bien, gracias" },
+		{ "obverse": "Nazywam się...", "reverse": "Me llamo..." },
+		{ "obverse": "Miło cię poznać", "reverse": "Mucho gusto" },
+		{ "obverse": "Nie rozumiem", "reverse": "No entiendo" },
+		{ "obverse": "Czy możesz mówić wolniej?", "reverse": "¿Puedes hablar más despacio?" },
+		{ "obverse": "Ile to kosztuje?", "reverse": "¿Cuánto cuesta?" },
+		{ "obverse": "Poproszę rachunek", "reverse": "La cuenta, por favor" },
+		{ "obverse": "Gdzie jest toaleta?", "reverse": "¿Dónde está el baño?" },
+		{ "obverse": "Pomocy!", "reverse": "¡Ayuda!" },
+		{ "obverse": "Dziękuję bardzo", "reverse": "Muchas gracias" },
+		{ "obverse": "Do widzenia", "reverse": "Adiós" }
 	]
 }
