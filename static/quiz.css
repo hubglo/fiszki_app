@@ -309,3 +309,56 @@
         font-size: 0.9rem;
     }
 }
+
+#leaderboard-section {
+    margin: 16px 0 24px;
+    width: 100%;
+    max-width: 480px;
+    text-align: left;
+}
+
+#leaderboard-section h2 {
+    margin: 0 0 10px;
+}
+
+.leaderboard-form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+#nickname-input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+}
+
+#save-score-btn {
+    background-color: var(--color-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    cursor: pointer;
+}
+
+#save-score-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+#save-status {
+    min-height: 24px;
+    font-weight: 600;
+    margin: 0 0 6px;
+}
+
+#leaderboard-list {
+    margin: 0;
+    padding-left: 20px;
+}
+
+#leaderboard-list li {
+    margin-bottom: 6px;
+}

@@ -1,7 +1,10 @@
 from flask import Flask, render_template, jsonify, request, redirect
 import json
+import os
 
 app = Flask(__name__)
+DEFAULT_LEADERBOARD_FILE = 'rankings.json'
+LEADERBOARD_FILE = os.environ.get('LEADERBOARD_FILE', DEFAULT_LEADERBOARD_FILE)
 
 # Load flashcards from JSON file
 def load_flashcards():
@@ -12,6 +15,23 @@ def load_flashcards():
 def load_themes():
     with open('themes.json', 'r', encoding='utf-8') as f:
         return json.load(f)
+
+
+def load_leaderboard():
+    if not os.path.exists(LEADERBOARD_FILE):
+        return {}
+
+    with open(LEADERBOARD_FILE, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+
+def save_leaderboard(leaderboard):
+    directory = os.path.dirname(LEADERBOARD_FILE)
+    if directory:
+        os.makedirs(directory, exist_ok=True)
+
+    with open(LEADERBOARD_FILE, 'w', encoding='utf-8') as f:
+        json.dump(leaderboard, f, ensure_ascii=False, indent=2)
 
 @app.route('/')
 def start_page():
@@ -75,6 +95,74 @@ def get_flashcards_api():
 def get_themes():
     themes_data = load_themes()
     return jsonify(themes_data['themes'])
+
+
+@app.route('/api/leaderboard/storage', methods=['GET'])
+def get_leaderboard_storage_info():
+    return jsonify({
+        'leaderboardFile': LEADERBOARD_FILE,
+        'isPersistentPath': LEADERBOARD_FILE.startswith('/data/'),
+        'note': 'Aby wyniki przetrwały restart kontenera, ustaw LEADERBOARD_FILE na ścieżkę w podpiętym wolumenie.'
+    })
+
+
+@app.route('/api/leaderboard', methods=['GET'])
+def get_leaderboard():
+    category = request.args.get('category', '').strip().lower()
+    mode = request.args.get('mode', '').strip().lower()
+    key = f'{category}:{mode}'
+
+    leaderboard = load_leaderboard()
+    entries = leaderboard.get(key, [])
+    return jsonify(entries)
+
+
+@app.route('/api/leaderboard', methods=['POST'])
+def add_leaderboard_entry():
+    payload = request.get_json(silent=True) or {}
+
+    nickname = str(payload.get('nickname', '')).strip()
+    category = str(payload.get('category', '')).strip().lower()
+    mode = str(payload.get('mode', '')).strip().lower()
+
+    score = payload.get('score')
+    total_questions = payload.get('totalQuestions')
+    elapsed_seconds = payload.get('elapsedSeconds')
+
+    if not nickname or len(nickname) > 30:
+        return jsonify({'error': 'Nickname musi mieć od 1 do 30 znaków.'}), 400
+
+    if not category or not mode:
+        return jsonify({'error': 'Brak kategorii lub trybu quizu.'}), 400
+
+    if not isinstance(score, int) or not isinstance(total_questions, int):
+        return jsonify({'error': 'Wynik i liczba pytań muszą być liczbami całkowitymi.'}), 400
+
+    if not isinstance(elapsed_seconds, (int, float)):
+        return jsonify({'error': 'Czas musi być liczbą.'}), 400
+
+    if score < 0 or total_questions <= 0 or score > total_questions:
+        return jsonify({'error': 'Nieprawidłowy wynik quizu.'}), 400
+
+    if elapsed_seconds < 0:
+        return jsonify({'error': 'Nieprawidłowy czas quizu.'}), 400
+
+    entry = {
+        'nickname': nickname,
+        'score': score,
+        'totalQuestions': total_questions,
+        'elapsedSeconds': round(float(elapsed_seconds), 1)
+    }
+
+    key = f'{category}:{mode}'
+    leaderboard = load_leaderboard()
+    entries = leaderboard.get(key, [])
+    entries.append(entry)
+    entries.sort(key=lambda item: (-item['score'], item['elapsedSeconds']))
+    leaderboard[key] = entries[:20]
+    save_leaderboard(leaderboard)
+
+    return jsonify(leaderboard[key])
 
 if __name__ == '__main__':
     app.run()

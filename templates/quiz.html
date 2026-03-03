@@ -24,6 +24,15 @@
             <div id="score-container">
                 <p>Wynik: <span id="score">0</span> / <span id="total-questions">0</span></p>
             </div>
+            <div id="leaderboard-section" style="display: none;">
+                <h2>Ranking</h2>
+                <div class="leaderboard-form">
+                    <input type="text" id="nickname-input" placeholder="Twoje imię lub pseudonim" maxlength="30" autocomplete="off">
+                    <button id="save-score-btn">Zapisz wynik</button>
+                </div>
+                <p id="save-status"></p>
+                <ol id="leaderboard-list"></ol>
+            </div>
             <div class="controls">
                 <a href="javascript:history.back()">Wróć</a>
             </div>
