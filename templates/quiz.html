@@ -8,6 +8,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
 </head>
 <body>
+    <button id="menuToggle" class="menu-toggle" aria-label="Otwórz menu" aria-expanded="false">☰</button>
+    <div id="menuOverlay" class="menu-overlay"></div>
+    <aside id="sideMenu" class="side-menu" aria-label="Menu boczne">
+        <h2>Menu</h2>
+        <nav class="side-menu-nav">
+            <a href="/">🏠 Strona główna</a>
+            <a href="javascript:history.back()">↩️ Wstecz</a>
+        </nav>
+
+        <div class="side-menu-section">
+            <h3>🎨 Motyw</h3>
+            <select id="themeSelector"></select>
+        </div>
+    </aside>
+
     <div class="container">
         <h1 id="page-title">Quiz</h1>
         <div id="quiz-container">
@@ -41,6 +56,8 @@
     <script>
         const category = '{{ category }}' || 'capitals';
     </script>
+    <script src="{{ url_for('static', filename='themes.js') }}"></script>
+    <script src="{{ url_for('static', filename='menu.js') }}"></script>
     <script src="{{ url_for('static', filename='quiz.js') }}"></script>
 </body>
 </html>

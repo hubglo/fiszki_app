@@ -3,8 +3,7 @@ import json
 import os
 
 app = Flask(__name__)
-DEFAULT_LEADERBOARD_FILE = 'rankings.json'
-LEADERBOARD_FILE = os.environ.get('LEADERBOARD_FILE', DEFAULT_LEADERBOARD_FILE)
+LEADERBOARD_FILE = 'rankings.json'
 
 # Load flashcards from JSON file
 def load_flashcards():
@@ -101,8 +100,7 @@ def get_themes():
 def get_leaderboard_storage_info():
     return jsonify({
         'leaderboardFile': LEADERBOARD_FILE,
-        'isPersistentPath': LEADERBOARD_FILE.startswith('/data/'),
-        'note': 'Aby wyniki przetrwały restart kontenera, ustaw LEADERBOARD_FILE na ścieżkę w podpiętym wolumenie.'
+        'note': 'Wyniki są zapisywane lokalnie w pliku rankings.json.'
     })
 
 

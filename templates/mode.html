@@ -5,230 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ category_name }} - Wybierz tryb</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .mode-container {
-            text-align: center;
-            width: 100%;
-        }
-
-        .mode-container p {
-            margin-bottom: 20px;
-            font-size: clamp(0.95rem, 2vw, 1.1em);
-            color: #666;
-            font-weight: 500;
-        }
-
-        .modes-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-            width: 100%;
-        }
-
-        .mode-card {
-            padding: 20px 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.12);
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 120px;
-            touch-action: manipulation;
-        }
-
-        .mode-card:nth-child(2) {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            box-shadow: 0 4px 12px rgba(245, 87, 108, 0.12);
-        }
-
-        .mode-card:nth-child(3) {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.12);
-        }
-
-        .mode-card:active {
-            transform: scale(0.98);
-        }
-
-        .mode-card div {
-            font-size: clamp(2rem, 6vw, 2.8em);
-            margin-bottom: 8px;
-        }
-
-        .mode-card h2 {
-            margin: 6px 0;
-            font-size: clamp(1.1rem, 3.5vw, 1.6em);
-            font-weight: 600;
-        }
-
-        .mode-card p {
-            margin: 0;
-            font-size: clamp(0.85rem, 2vw, 0.95em);
-            opacity: 0.95;
-            color: inherit;
-        }
-
-        .back-button {
-            margin-top: 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 24px;
-            background-color: #6c757d;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            font-weight: 600;
-            font-size: clamp(0.95rem, 2vw, 1rem);
-            min-height: 44px;
-            box-shadow: 0 2px 6px rgba(108, 117, 125, 0.2);
-        }
-
-        .back-button:active {
-            transform: scale(0.98);
-        }
-
-        @media (hover: hover) {
-            .mode-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
-            }
-
-            .mode-card:nth-child(2):hover {
-                box-shadow: 0 8px 20px rgba(245, 87, 108, 0.2);
-            }
-
-            .mode-card:nth-child(3):hover {
-                box-shadow: 0 8px 20px rgba(79, 172, 254, 0.2);
-            }
-
-            .back-button:hover {
-                background-color: #5a6268;
-                box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
-                transform: translateY(-2px);
-            }
-        }
-
-        @media (min-width: 430px) {
-            .modes-grid {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-                gap: 16px;
-            }
-
-            .mode-container p {
-                margin-bottom: 24px;
-            }
-
-            .mode-card {
-                padding: 24px 18px;
-                min-height: 130px;
-            }
-
-            .mode-card div {
-                margin-bottom: 10px;
-            }
-
-            .back-button {
-                margin-top: 28px;
-                padding: 14px 28px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .modes-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 18px;
-            }
-
-            .mode-card {
-                padding: 28px 20px;
-                min-height: 140px;
-                box-shadow: 0 4px 14px rgba(102, 126, 234, 0.1);
-            }
-
-            .mode-card:nth-child(2) {
-                box-shadow: 0 4px 14px rgba(245, 87, 108, 0.1);
-            }
-
-            .mode-card:nth-child(3) {
-                box-shadow: 0 4px 14px rgba(79, 172, 254, 0.1);
-            }
-
-            .mode-card h2 {
-                font-size: 1.6em;
-            }
-
-            .back-button {
-                margin-top: 32px;
-            }
-        }
-
-        @media (orientation: landscape) and (max-height: 600px) {
-            .modes-grid {
-                gap: 10px;
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .mode-card {
-                padding: 12px 8px;
-                min-height: 100px;
-            }
-
-            .mode-card div {
-                font-size: 1.8em;
-                margin-bottom: 4px;
-            }
-
-            .mode-card h2 {
-                margin: 2px 0;
-                font-size: 1.1rem;
-            }
-
-            .mode-card p {
-                font-size: 0.8rem;
-            }
-
-            .back-button {
-                margin-top: 12px;
-                padding: 10px 18px;
-                min-height: 40px;
-                font-size: 0.9rem;
-            }
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="mode-container">
-            <h1>{{ category_name }}</h1>
-            <p>Wybierz tryb nauki:</p>
-            
-            <div class="modes-grid">
-                <a href="/flashcards/{{ data_key if data_key else category_id }}" class="mode-card">
-                    <div style="font-size: 2.5em; margin-bottom: 10px;">📚</div>
-                    <h2>Fiszki</h2>
-                    <p>Przeglądaj karty</p>
-                </a>
-                <a href="/quiz/{{ data_key if data_key else category_id }}" class="mode-card">
-                    <div style="font-size: 2.5em; margin-bottom: 10px;">✍️</div>
-                    <h2>Quiz</h2>
-                    <p>Wpisz odpowiedź</p>
-                </a>
-                <a href="/quiz-multichoice/{{ data_key if data_key else category_id }}" class="mode-card">
-                    <div style="font-size: 2.5em; margin-bottom: 10px;">🔘</div>
-                    <h2>Quiz</h2>
-                    <p>Wybierz odpowiedź</p>
-                </a>
-            </div>
-            
-            <a href="javascript:history.back()" class="back-button">← Powrót</a>
+    <button id="menuToggle" class="menu-toggle" aria-label="Otwórz menu" aria-expanded="false">☰</button>
+    <div id="menuOverlay" class="menu-overlay"></div>
+    <aside id="sideMenu" class="side-menu" aria-label="Menu boczne">
+        <h2>Menu</h2>
+        <nav class="side-menu-nav">
+            <a href="/">🏠 Strona główna</a>
+            <a href="javascript:history.back()">↩️ Wstecz</a>
+        </nav>
+
+        <div class="side-menu-section">
+            <h3>🎨 Motyw</h3>
+            <select id="themeSelector"></select>
         </div>
+    </aside>
+
+    <div class="container app-shell">
+        <div class="hero">
+            <p class="hero-badge">🧠 Wybór trybu</p>
+            <h1>{{ category_name }}</h1>
+            <p class="hero-subtitle">Dopasuj sposób nauki do swojego stylu.</p>
+        </div>
+
+        <div class="modes-grid">
+            <a href="/flashcards/{{ data_key if data_key else category_id }}" class="card-link card-link--violet">
+                <div class="card-icon">📚</div>
+                <h2>Fiszki</h2>
+                <p>Przeglądaj karty</p>
+            </a>
+            <a href="/quiz/{{ data_key if data_key else category_id }}" class="card-link card-link--rose">
+                <div class="card-icon">✍️</div>
+                <h2>Quiz</h2>
+                <p>Wpisz odpowiedź</p>
+            </a>
+            <a href="/quiz-multichoice/{{ data_key if data_key else category_id }}" class="card-link card-link--cyan">
+                <div class="card-icon">🔘</div>
+                <h2>Quiz ABCD</h2>
+                <p>Wybierz odpowiedź</p>
+            </a>
+        </div>
+
+        <a href="javascript:history.back()" class="back-button">← Powrót</a>
     </div>
+
+    <script src="{{ url_for('static', filename='themes.js') }}"></script>
+    <script src="{{ url_for('static', filename='menu.js') }}"></script>
 </body>
 </html>
