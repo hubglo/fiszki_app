@@ -33,6 +33,18 @@
 			"id": "mechanika_kwantowa",
 			"name": "⚛️ Mechanika kwantowa (uniwersytecka)",
 			"hasSubcategories": false
+		},
+		{
+			"id": "matematyka",
+			"name": "📐 Matematyka",
+			"hasSubcategories": true,
+			"subcategories": [
+				{
+					"id": "pola_powierzchni",
+					"name": "Pola powierzchni",
+					"dataKey": "pola_powierzchni"
+				}
+			]
 		}
 	],
 	"kolo_kwintowe": [
@@ -144,5 +156,16 @@
 		{ "obverse": "Jaki jest warunek normalizacji funkcji falowej?", "reverse": "∫ |ψ(x)|² dx = 1" },
 		{ "obverse": "Jak ewoluuje stan stacjonarny w czasie?", "reverse": "|ψ(t)⟩ = e^(−iEt/ħ)|ψ(0)⟩, czyli zmienia się tylko faza" },
 		{ "obverse": "Co to jest tunelowanie kwantowe?", "reverse": "Niezerowe prawdopodobieństwo przejścia przez barierę potencjału klasycznie nieprzekraczalną" }
+	],
+	"pola_powierzchni": [
+		{ "obverse": "Jaki jest wzór na pole kwadratu o boku a?", "reverse": "P = a²" },
+		{ "obverse": "Jaki jest wzór na pole prostokąta o bokach a i b?", "reverse": "P = a · b" },
+		{ "obverse": "Jaki jest wzór na pole równoległoboku o podstawie a i wysokości h?", "reverse": "P = a · h" },
+		{ "obverse": "Jaki jest wzór na pole rombu z przekątnymi d₁ i d₂?", "reverse": "P = (d₁ · d₂) / 2" },
+		{ "obverse": "Jaki jest wzór na pole rombu z bokiem a i wysokością h?", "reverse": "P = a · h" },
+		{ "obverse": "Jaki jest wzór na pole deltoidu z przekątnymi d₁ i d₂?", "reverse": "P = (d₁ · d₂) / 2" },
+		{ "obverse": "Jaki jest wzór na pole trapezu o podstawach a i b oraz wysokości h?", "reverse": "P = ((a + b) · h) / 2" },
+		{ "obverse": "Jak obliczyć pole całkowite prostopadłościanu o krawędziach a, b, c?", "reverse": "P_c = 2ab + 2ac + 2bc" },
+		{ "obverse": "Jak obliczyć pole całkowite sześcianu o krawędzi a?", "reverse": "P_c = 6a²" }
 	]
 }
