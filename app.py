@@ -1,9 +1,14 @@
 from flask import Flask, render_template, jsonify, request, redirect
 import json
 import os
+import random
+from threading import Lock
 
 app = Flask(__name__)
 LEADERBOARD_FILE = 'rankings.json'
+WORLD_SIZE = {'width': 2000, 'height': 1200}
+players = {}
+players_lock = Lock()
 
 # Load flashcards from JSON file
 def load_flashcards():
@@ -14,6 +19,39 @@ def load_flashcards():
 def load_themes():
     with open('themes.json', 'r', encoding='utf-8') as f:
         return json.load(f)
+
+
+def get_all_questions():
+    data = load_flashcards()
+    questions = []
+
+    for category in data.get('categories', []):
+        data_key = category.get('dataKey', category.get('id'))
+        if data_key and data_key in data:
+            for item in data[data_key]:
+                obverse = item.get('obverse') or item.get('country')
+                reverse = item.get('reverse') or item.get('capital')
+                if obverse and reverse:
+                    questions.append({
+                        'question': f'{obverse}',
+                        'answer': f'{reverse}',
+                        'category': category.get('name', category.get('id', 'Nieznana'))
+                    })
+
+        for sub in category.get('subcategories', []):
+            sub_key = sub.get('dataKey', sub.get('id'))
+            if sub_key and sub_key in data:
+                for item in data[sub_key]:
+                    obverse = item.get('obverse') or item.get('country')
+                    reverse = item.get('reverse') or item.get('capital')
+                    if obverse and reverse:
+                        questions.append({
+                            'question': f'{obverse}',
+                            'answer': f'{reverse}',
+                            'category': sub.get('name', sub.get('id', 'Nieznana'))
+                        })
+
+    return questions
 
 
 def load_leaderboard():
@@ -75,6 +113,11 @@ def quiz(category):
 def quiz_multichoice(category):
     return render_template('quiz-multichoice.html', category=category)
 
+
+@app.route('/adventure')
+def adventure():
+    return render_template('adventure.html', world_size=WORLD_SIZE)
+
 @app.route('/api/categories')
 def get_categories():
     data = load_flashcards()
@@ -94,6 +137,73 @@ def get_flashcards_api():
 def get_themes():
     themes_data = load_themes()
     return jsonify(themes_data['themes'])
+
+
+@app.route('/api/adventure/challenge', methods=['GET'])
+def get_adventure_challenge():
+    questions = get_all_questions()
+    if not questions:
+        return jsonify({'error': 'Brak pytań do wyzwań przygodowych.'}), 404
+
+    challenge = random.choice(questions)
+    return jsonify(challenge)
+
+
+@app.route('/api/world/join', methods=['POST'])
+def world_join():
+    payload = request.get_json(silent=True) or {}
+    player_id = str(payload.get('id', '')).strip() or str(random.randint(1000, 999999))
+    nickname = str(payload.get('nickname', 'Gracz')).strip()[:20] or 'Gracz'
+    x = int(payload.get('x', 100))
+    y = int(payload.get('y', 100))
+    x = max(0, min(WORLD_SIZE['width'], x))
+    y = max(0, min(WORLD_SIZE['height'], y))
+
+    with players_lock:
+        players[player_id] = {'id': player_id, 'nickname': nickname, 'x': x, 'y': y}
+
+    return jsonify({'playerId': player_id, 'worldSize': WORLD_SIZE})
+
+
+@app.route('/api/world/move', methods=['POST'])
+def world_move():
+    payload = request.get_json(silent=True) or {}
+    player_id = str(payload.get('id', '')).strip()
+    if not player_id:
+        return jsonify({'error': 'Brak id gracza.'}), 400
+
+    x = int(payload.get('x', 0))
+    y = int(payload.get('y', 0))
+    x = max(0, min(WORLD_SIZE['width'], x))
+    y = max(0, min(WORLD_SIZE['height'], y))
+
+    with players_lock:
+        player = players.get(player_id)
+        if not player:
+            return jsonify({'error': 'Gracz nie został znaleziony.'}), 404
+        player['x'] = x
+        player['y'] = y
+
+    return jsonify({'ok': True})
+
+
+@app.route('/api/world/state', methods=['GET'])
+def world_state():
+    with players_lock:
+        snapshot = list(players.values())
+    return jsonify({'players': snapshot})
+
+
+@app.route('/api/world/leave', methods=['POST'])
+def world_leave():
+    payload = request.get_json(silent=True) or {}
+    player_id = str(payload.get('id', '')).strip()
+    if not player_id:
+        return jsonify({'ok': True})
+
+    with players_lock:
+        players.pop(player_id, None)
+    return jsonify({'ok': True})
 
 
 @app.route('/api/leaderboard/storage', methods=['GET'])
@@ -161,6 +271,7 @@ def add_leaderboard_entry():
     save_leaderboard(leaderboard)
 
     return jsonify(leaderboard[key])
+
 
 if __name__ == '__main__':
     app.run()
