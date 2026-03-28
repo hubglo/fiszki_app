@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kraina Wiedzy - Tryb przygodowy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container adventure-shell">
+        <h1>🌍 Kraina Wiedzy (Wspólny świat)</h1>
+        <p class="adventure-subtitle">Poruszaj się strzałkami/WASD i rozwiązuj wyzwania, gdy dojdziesz do znacznika.</p>
+
+        <div class="adventure-toolbar">
+            <label for="nicknameInput">Nick:</label>
+            <input id="nicknameInput" type="text" maxlength="20" placeholder="np. Ola" />
+            <button id="connectBtn">Połącz</button>
+            <button id="challengeBtn">Wyzwanie</button>
+            <a class="inline-link-btn" href="/">Powrót</a>
+        </div>
+
+        <div id="worldViewport" class="world-viewport">
+            <div id="worldMap" class="world-map" data-width="{{ world_size.width }}" data-height="{{ world_size.height }}">
+                <div id="challengePoint" class="challenge-point" title="Punkt wyzwania"></div>
+            </div>
+        </div>
+
+        <p id="statusText" class="world-status">Status: niepołączono.</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='adventure.js') }}"></script>
+</body>
+</html>
