@@ -2,13 +2,14 @@ from flask import Flask, render_template, jsonify, request, redirect
 import json
 import os
 import random
-from threading import Lock
+import sqlite3
+import time
 
 app = Flask(__name__)
 LEADERBOARD_FILE = 'rankings.json'
 WORLD_SIZE = {'width': 2000, 'height': 1200}
-players = {}
-players_lock = Lock()
+WORLD_STATE_DB = 'world_state.db'
+PLAYER_TTL_SECONDS = 120
 
 # Load flashcards from JSON file
 def load_flashcards():
@@ -19,6 +20,37 @@ def load_flashcards():
 def load_themes():
     with open('themes.json', 'r', encoding='utf-8') as f:
         return json.load(f)
+
+
+def get_world_db_connection():
+    connection = sqlite3.connect(WORLD_STATE_DB)
+    connection.row_factory = sqlite3.Row
+    return connection
+
+
+def init_world_state_db():
+    with get_world_db_connection() as connection:
+        connection.execute(
+            '''
+            CREATE TABLE IF NOT EXISTS players (
+                id TEXT PRIMARY KEY,
+                nickname TEXT NOT NULL,
+                x INTEGER NOT NULL,
+                y INTEGER NOT NULL,
+                updated_at REAL NOT NULL
+            )
+            '''
+        )
+        connection.commit()
+
+
+def cleanup_stale_players(connection):
+    expires_at = time.time() - PLAYER_TTL_SECONDS
+    connection.execute('DELETE FROM players WHERE updated_at < ?', (expires_at,))
+    connection.commit()
+
+
+init_world_state_db()
 
 
 def get_all_questions():
@@ -159,8 +191,21 @@ def world_join():
     x = max(0, min(WORLD_SIZE['width'], x))
     y = max(0, min(WORLD_SIZE['height'], y))
 
-    with players_lock:
-        players[player_id] = {'id': player_id, 'nickname': nickname, 'x': x, 'y': y}
+    with get_world_db_connection() as connection:
+        cleanup_stale_players(connection)
+        connection.execute(
+            '''
+            INSERT INTO players (id, nickname, x, y, updated_at)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(id) DO UPDATE SET
+                nickname = excluded.nickname,
+                x = excluded.x,
+                y = excluded.y,
+                updated_at = excluded.updated_at
+            ''',
+            (player_id, nickname, x, y, time.time())
+        )
+        connection.commit()
 
     return jsonify({'playerId': player_id, 'worldSize': WORLD_SIZE})
 
@@ -177,20 +222,26 @@ def world_move():
     x = max(0, min(WORLD_SIZE['width'], x))
     y = max(0, min(WORLD_SIZE['height'], y))
 
-    with players_lock:
-        player = players.get(player_id)
-        if not player:
+    with get_world_db_connection() as connection:
+        cleanup_stale_players(connection)
+        current = connection.execute('SELECT id FROM players WHERE id = ?', (player_id,)).fetchone()
+        if not current:
             return jsonify({'error': 'Gracz nie został znaleziony.'}), 404
-        player['x'] = x
-        player['y'] = y
+        connection.execute(
+            'UPDATE players SET x = ?, y = ?, updated_at = ? WHERE id = ?',
+            (x, y, time.time(), player_id)
+        )
+        connection.commit()
 
     return jsonify({'ok': True})
 
 
 @app.route('/api/world/state', methods=['GET'])
 def world_state():
-    with players_lock:
-        snapshot = list(players.values())
+    with get_world_db_connection() as connection:
+        cleanup_stale_players(connection)
+        rows = connection.execute('SELECT id, nickname, x, y FROM players').fetchall()
+        snapshot = [dict(row) for row in rows]
     return jsonify({'players': snapshot})
 
 
@@ -201,8 +252,9 @@ def world_leave():
     if not player_id:
         return jsonify({'ok': True})
 
-    with players_lock:
-        players.pop(player_id, None)
+    with get_world_db_connection() as connection:
+        connection.execute('DELETE FROM players WHERE id = ?', (player_id,))
+        connection.commit()
     return jsonify({'ok': True})
 
 
