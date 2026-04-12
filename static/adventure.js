@@ -18,31 +18,9 @@ let pollIntervalId;
 const challengeLocation = { x: 980, y: 560 };
 challengePoint.style.left = `${challengeLocation.x}px`;
 challengePoint.style.top = `${challengeLocation.y}px`;
-const worldDecorations = [
-    { type: 'tree', x: 220, y: 260 },
-    { type: 'tree', x: 340, y: 870 },
-    { type: 'tree', x: 620, y: 430 },
-    { type: 'tree', x: 1260, y: 290 },
-    { type: 'tree', x: 1530, y: 910 },
-    { type: 'tree', x: 1820, y: 620 },
-    { type: 'stone', x: 510, y: 650 },
-    { type: 'stone', x: 840, y: 340 },
-    { type: 'stone', x: 1170, y: 760 },
-    { type: 'stone', x: 1690, y: 460 }
-];
 
 function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
-}
-
-function renderDecorations() {
-    worldDecorations.forEach(item => {
-        const el = document.createElement('div');
-        el.className = `world-object world-object--${item.type}`;
-        el.style.left = `${item.x}px`;
-        el.style.top = `${item.y}px`;
-        worldMap.appendChild(el);
-    });
 }
 
 function renderPlayers() {
@@ -173,5 +151,4 @@ window.addEventListener('beforeunload', () => {
         keepalive: true
     });
 });
-renderDecorations();
 renderPlayers();

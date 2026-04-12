@@ -500,10 +500,7 @@ p {
     position: absolute;
     width: 2000px;
     height: 1200px;
-    background-color: #d9f4da;
     background-image:
-        radial-gradient(circle at 10% 15%, rgba(255, 255, 255, 0.48) 0, rgba(255, 255, 255, 0) 42%),
-        radial-gradient(circle at 80% 25%, rgba(255, 255, 255, 0.35) 0, rgba(255, 255, 255, 0) 30%),
         linear-gradient(0deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
@@ -511,21 +508,21 @@ p {
 
 .player {
     position: absolute;
-    width: 48px;
-    height: 48px;
-    background: url('/static/assets/player-other.svg') center/contain no-repeat;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ea4a4a;
+    border: 2px solid white;
     transform: translate(-50%, -50%);
-    z-index: 3;
 }
 
 .player--self {
-    background-image: url('/static/assets/player-self.svg');
-    filter: drop-shadow(0 0 10px rgba(45, 140, 255, 0.45));
+    background: #2d8cff;
 }
 
 .player-label {
     position: absolute;
-    top: -20px;
+    top: -22px;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(26, 34, 58, 0.8);
@@ -538,31 +535,12 @@ p {
 
 .challenge-point {
     position: absolute;
-    width: 42px;
-    height: 42px;
-    background: url('/static/assets/challenge-scroll.svg') center/contain no-repeat;
+    width: 30px;
+    height: 30px;
+    background: #21b573;
+    border-radius: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 0 0 0 8px rgba(33, 181, 115, 0.2);
-    z-index: 2;
-}
-
-.world-object {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 1;
-}
-
-.world-object--tree {
-    width: 64px;
-    height: 72px;
-    background: url('/static/assets/tree.svg') center/contain no-repeat;
-}
-
-.world-object--stone {
-    width: 52px;
-    height: 34px;
-    background: url('/static/assets/stone.svg') center/contain no-repeat;
 }
 
 .world-status {
